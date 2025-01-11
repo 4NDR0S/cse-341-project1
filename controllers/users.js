@@ -1,30 +1,21 @@
 const mongodb = require('../data/database');
-const ObjectId = require('mongodb').ObjectId; // Corregir nombre (ObjectId en vez de ObjecId)
+const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
-    try {
-        const result = await mongodb.getDatabase().db().collection('users').find().toArray(); // Usar await para toArray
-        res.setHeader('Content-Type', 'application/json'); // Corregir tipo MIME
-        res.status(200).json(result); // Devolver el resultado directamente
-    } catch (err) {
-        res.status(500).json({ error: 'Hubo un error al obtener los usuarios' });
-    }
+    const result = await mongodb.getDatabase().db().collection('users').find();
+    result.toArray().then((users) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(users);
+    });
 };
 
-const getSingle = async (req, res) => {
-    try {
-        const userId = new ObjectId(req.params.id); // Corregir nombre de la clase ObjectId
-        const result = await mongodb.getDatabase().db().collection('users').find({ _id: userId }).toArray(); // Usar await para toArray
-
-        if (result.length === 0) {
-            return res.status(404).json({ error: 'Usuario no encontrado' });
-        }
-
-        res.setHeader('Content-Type', 'application/json'); // Corregir tipo MIME
-        res.status(200).json(result[0]); // Devolver el primer (y único) usuario
-    } catch (err) {
-        res.status(500).json({ error: 'Hubo un error al obtener el usuario' });
-    }
+const getSingle = async (req, res) =>{
+    const userId = new ObjectId(req.params.id)
+    const result = await mongodb.getDatabase().db().collection('users').find({ _id: userId });
+    result.toArray().then((users) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(users[0]);
+    });
 };
 
 module.exports = {
