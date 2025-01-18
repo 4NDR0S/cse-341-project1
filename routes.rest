@@ -1,0 +1,33 @@
+// LOCALHOST
+### Get all
+GET http://localhost:3000/users
+
+### Get contact by id
+GET http://localhost:3000/users/678be0c3bef894d01f6c30e2
+
+### Create contact
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "firstName":"Stefan",
+    "lastName": "Salvatore",
+    "email": "sSalvatore@tvd.com",
+    "favoriteColor": "dark blue",
+    "birthday": "November 1, 1846" 
+}
+
+### Update contact by id
+PUT http://localhost:3000/users/678be0c3bef894d01f6c30e2
+Content-Type: application/json
+
+{
+    "firstName":"Stefan",
+    "lastName": "Salvatore",
+    "email": "sSalvatore@tvd.com",
+    "favoriteColor": "dark blue 2",
+    "birthday": "November 1, 1846" 
+}
+
+### Delete contact by id
+DELETE http://localhost:3000/users/67823c37169019f6ce517568
