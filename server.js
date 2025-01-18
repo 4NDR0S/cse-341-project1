@@ -9,6 +9,18 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json())
+
+//swagger
+app.use((req, res, next) => {
+    res.setHeader('Acces-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Acces-Control-Allow-Headers',
+        'Origin, X-Request-with, Content-Type, Accept, Z-Key'
+    );
+    res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    next();
+})
+//swagger
 app.use('/', require('./routes'));
 
 
